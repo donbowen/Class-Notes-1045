@@ -1,0 +1,71 @@
+Mason
+
+from sec_edgar_downloader import Downloader
+from datetime import datetime
+
+firms = ['MSFT', 'AMZN', 'AAPL']
+d1 = Downloader('10k_files')
+
+for firms in firms:
+    d1.get('10-K',[firms], amount=1, before= '2020-03-01')
+
+-----------
+Patrick
+
+---------------	
+
+NICOLE
+
+from sec_edgar_downloader import Downloader
+import os
+
+tics = ['MSFT','AMZN','AAPL']
+before = '2020-03-01'
+res_path = '10K_filings'
+download_type = '10-K'
+amount = 1
+
+os.makedirs(res_path, exist_ok=True)
+dl = Downloader(res_path)
+
+# Loop over each ticker
+for tic in tics:
+    # Check if the files were already downloaded
+    tic_res_path = fr'{res_path}\sec-edgar-filings\{tic}\{download_type}'
+    if os.path.exists(tic_res_path) and \
+            len(os.listdir(tic_res_path)) == amount:    # quick check
+        continue
+   
+    # If not, download the files
+    dl.get(download_type, tic, before=before, amount=amount) # download_details=False?
+
+
+===================================
+
+Will M 
+
+pd.read_html() approach
+requests() approach
+
+---------
+
+Carter
+
+tick_ids = ['MSFT', 'AMZN', 'AAPL']
+for tick_id in tick_ids:
+    dl.get('10-K', tick_id, amount = 1, before = '2020-03-01')
+
+---------
+
+Juan
+
+dl = Downloader("10k_files")
+firms = ['MSFT', 'AMZN', 'AAPL']
+base_path = "10k_files/sec-edgar-filings/"
+for firm in firms:
+    path = base_path + firm
+    if not os.path.exists(path):
+        dl.get('10-K',firm, amount=1, before="2020-03-01")
+		
+------------
+
